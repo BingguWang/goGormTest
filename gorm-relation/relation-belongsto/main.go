@@ -3,7 +3,7 @@ package main
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	model "github.com/wbing441282413/goGorm/gorm-model/model"
+	model "github.com/wbing441282413/goGormTest/gorm-relation/relation-belongsto/model"
 )
 
 var db *gorm.DB
@@ -26,13 +26,13 @@ func init() {
 	db.DB().SetMaxIdleConns(10)  //最大空闲连接池数
 	db.DB().SetMaxOpenConns(100) //数据库打开的最大连接数
 }
+
 func main() {
 
-	// 自动迁移,使用gorm自动对应实体创建表结构，
-	// 仅支持创建表、增加表中没有的字段和索引。为了保护你的数据，它并不支持改变已有的字段类型或删除未被使用的字段
-	db.AutoMigrate(&model.Song{})
-	s := model.Song{ListenCount: 0} //如果是存的0值的话，是不会被插入的,而是取默认值
-	db.Create(&s)
+	var songs []model.Song
+	db.Preload("Singer").Find(&songs) //默认是左连接的
+	for _, v := range songs {
+		v.ToString()
+	}
 
-	defer db.Close()
 }

@@ -1,9 +1,12 @@
 package main
 
+//many 2 many //多对多，一般处理多对多是建立一个连接表
 import (
+	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	model "github.com/wbing441282413/goGorm/gorm-model/model"
+	model "github.com/wbing441282413/goGormTest/gorm-relation/relation-manytomany/model"
 )
 
 var db *gorm.DB
@@ -26,13 +29,11 @@ func init() {
 	db.DB().SetMaxIdleConns(10)  //最大空闲连接池数
 	db.DB().SetMaxOpenConns(100) //数据库打开的最大连接数
 }
+
 func main() {
+	var singers []model.Singer
+	fmt.Println(singers)
 
-	// 自动迁移,使用gorm自动对应实体创建表结构，
-	// 仅支持创建表、增加表中没有的字段和索引。为了保护你的数据，它并不支持改变已有的字段类型或删除未被使用的字段
-	db.AutoMigrate(&model.Song{})
-	s := model.Song{ListenCount: 0} //如果是存的0值的话，是不会被插入的,而是取默认值
-	db.Create(&s)
+	// db.AutoMigrate(&model.Sheet{})
 
-	defer db.Close()
 }
