@@ -35,7 +35,7 @@ func main() {
 		为什么没有指定表名，怎么映射结构体和表的呢》会自动把结构体名+s作为对应的表名
 	*/
 
-	// db.Find(&s) //获取所有没删除的记录
+	//db.Find(&s) //获取所有没删除的记录
 	// db.First(&s) //按住键递增排序，获第一条数据
 	// db.Take(&s) //不指定排序，获取一条数据
 	// db.Last(&s) //按主键递减排序，获取第一条数据
@@ -108,7 +108,12 @@ func main() {
 
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Limit
 	// 用 -1 取消 LIMIT 限制条件
-	// db.Limit(10).Find(&s).Limit(-1).Find(&s) //链式，相当于查了两次，不加-1，第二次也会有limit限制
+	var ss []model.Song
+	//db.Limit(10).Find(&s).Limit(-1).Find(&ss) //链式，相当于查了两次，不加-1，第二次也会有limit限制
+	db.Offset(0).Limit(3).Find(&ss) //limit限制查询出的记录数，offset设置查找开始的下标（0开始）
+	for _, song := range ss {
+		fmt.Println(song)
+	}
 
 	// var ss []model.Song
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>	查询指定字段 	select
