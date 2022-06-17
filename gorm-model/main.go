@@ -11,7 +11,7 @@ var db *gorm.DB
 func init() {
 	//用户名:密码@tcp(数据库ip或域名:端口)/数据库名称?charset=数据库编码&parseTime=True&loc=Local
 	var err error
-	db, err = gorm.Open("mysql", "root:12345@tcp(127.0.0.1:3306)/db_01?"+
+	db, err = gorm.Open("mysql", "root:12345@tcp(127.0.0.1:3306)/golang?"+
 		"charset=utf8&parseTime=True&loc=Local")
 	//有点像go的数据库包一样，使用open方法来两将诶数据库
 	if err != nil {

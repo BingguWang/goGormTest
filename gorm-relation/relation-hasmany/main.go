@@ -2,11 +2,9 @@ package main
 
 //has many  一对多
 import (
-	"fmt"
-
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	model "github.com/wbing441282413/goGormTest/gorm-relation/relation-hasmany/model"
+	"github.com/wbing441282413/goGormTest/gorm-relation/relation-hasmany/model"
 )
 
 var db *gorm.DB
@@ -31,13 +29,27 @@ func init() {
 }
 
 func main() {
-	var singers []model.Singer
-	db.Preload("SongList").Find(&singers)
-	for _, v := range singers {
-		v.ToString()
-		for _, s := range v.SongList {
-			s.ToString()
-		}
-		fmt.Println("-----------------------")
+	//var singers []model.Singer
+	//
+	//db.Preload("SongList").Find(&singers)
+	//for _, v := range singers {
+	//	v.ToString()
+	//	for _, s := range v.SongList {
+	//		s.ToString()
+	//	}
+	//	fmt.Println("-----------------------")
+	//}
+
+	singer := model.Singer{
+		SongList: []model.Song{
+			{
+				SongName: "fuckkkkkkk",
+			},
+			{
+				SongName: "shittttttt",
+			},
+		},
 	}
+	db.Omit("nick_name").Create(&singer)
+
 }

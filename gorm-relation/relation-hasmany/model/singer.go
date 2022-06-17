@@ -9,7 +9,7 @@ type Singer struct {
 	Age      int    `json:"age"`
 
 	//has many 一对多,foreignKey:对方表中的关联关键字;
-	SongList []Song `json:"songList" gorm:"foreignKey:SingerId;"`
+	SongList []Song `json:"songList" gorm:"foreignKey:MainId;"`
 }
 
 func (singer *Singer) GetName() string {

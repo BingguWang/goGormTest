@@ -15,3 +15,8 @@ type Song struct {
 	UpdatedAt   time.Time
 	DeletedAt   *time.Time `sql:"index"`
 }
+
+// 只要实现Tabler接口就能自定义表名
+func (*Song) TableName() string {
+	return "song" // 返回你要自定义的表名
+}
